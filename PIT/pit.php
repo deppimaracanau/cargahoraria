@@ -32,7 +32,7 @@
               <span class="icon-bar"></span>
             </button>
             <a href="../index.php" class="navbar-brand"><span class="logo">IFCE</span></a>
-          </div>  
+          </div>
 
           <div class="collapse navbar-collapse" id="barra-navegacao">
 	          <ul class="nav navbar-nav navbar-right">
@@ -41,7 +41,7 @@
 	            <li> <a href="../RIT/orientacoesRIT.php">RIT</a> </li>
 	            <li> <a href="#" data-toggle="modal" data-target="#janelaAjuda">AJUDA</a> </li>
 	          </ul>
-	       </div>       
+	       </div>
 
         </div>
       </nav>
@@ -70,7 +70,7 @@
 
 	        <div class="row">
 	          <div class="col-sm-8">
-	            Nome: 
+	            Nome:
 	            <input type="text" name="nome" id="nome" class="form-control">
 	          </div>
 	          <div class="col-sm-4">
@@ -119,11 +119,11 @@
 	                <option value="20h">20h</option>
 	            </select>
 	          </div>
-	        </div>
-	        
+	        </div> 
 	        <br><br><hr/><br>
 
-	        <!-- Ficha de Atividades de Carga Horária -->
+
+<!-- Ficha de Atividades de Carga Horária -->
 	        <h1 class="page-header">ATIVIDADES DOCENTES</h1>
 	  			<h2>Atividades de Ensino</h2>
 
@@ -164,7 +164,7 @@
 	            <th>Participação nos encontros técnico-pedagógicos, reuniões com os diversos setores da gestão</th>
 	            <th><input type="text" readonly="true" class="totalNum" name="t6" id="t6" /> </th>
 	          </tr>
-	        </table>			
+	        </table>
 
 	  			<h3>ATIVIDADES DE ORIENTAÇÃO (até 10 horas)</h3> <!-- PARTE 4 -->
 	  			<table class="table table-striped">
@@ -193,7 +193,7 @@
 	            <th> <input type="number" min="0" max="1" class="entradaNum" onchange="dados(11)" name="q11" id="q11" placeholder="Max: 1" /> </th>
 	            <th><input type="text" readonly="true" class="totalNum" name="t11" id="t11" /> </th>
 	          </tr>
-	        </table>		
+	        </table>
 
 	  			<h3>ATIVIDADES DE ENSINO EXTRACURRICULAR (até 25% do regime de trabalho)</h3> <!-- PARTE 5 -->
 	  			<table class="table table-striped">
@@ -376,8 +376,8 @@
 	            <th><input type="text" readonly="true" class="totalNum" name="t37" id="t37" /> </th>
 	          </tr>
 	        </table>
-	  			
-	  			<h3>ATIVIDADES EM COMISSÕES OU DE FISCALIZAÇÃO</h3> <!-- PARTE 9 -->
+
+				<h3>ATIVIDADES EM COMISSÕES OU DE FISCALIZAÇÃO</h3> <!-- PARTE 9 -->
 	  			<table class="table table-striped">
 	          <tr>
 	            <th>Conselhos, comissões ou comitês permanentes institucionais</th>
@@ -424,7 +424,7 @@
 	            <th><input type="number" min="0" max="2" class="entradaNum" onchange="dados(46)" name="q46" id="q46" placeholder="Max: 2" /> </th>
 	            <th><input type="text" readonly="true" class="totalNum" name="t46" id="t46" /> </th>
 	          </tr>
-	        </table>	
+	        </table>
 
 	        <!-- Total -->
 	        <table class="table table-striped">
@@ -436,10 +436,8 @@
 
 	        <!-- Janela -->
 	        <div class="modal fade" id="janela">
-	          
 	          <div class="modal-dialog modal-lg">
 	            <div class="modal-content">
-	              
 	              <!-- cabecalho -->
 	              <div class="modal-header">
 	                <button type="button" class="close" data-dismiss="modal">
@@ -452,10 +450,10 @@
 	              <div class="modal-body">
 	                <table class="table table-striped">
 	                  <tr id="nomeTabela">
-	                    
+
 	                  </tr>
 	                  <tr id="qtdTabela">
-	                    
+
 	                  </tr>
 	                </table>
 
@@ -637,7 +635,6 @@
         </footer>
 
 
-
         <!-- ------------------------ Código JavaScript do Sistema ------------------------ -->
 		<script type="text/javascript">
 	    	//Variáveis Globais
@@ -777,7 +774,7 @@
 
 						// Calculos do campo 4 e 5
 		            	if(document.getElementById('regime').value == "20h") {
-							
+
 							document.getElementById('t5').value = Math.ceil(x * 0.2) > 2 ? 2 : Math.ceil(x * 0.2);
 
 							var T6 = x - Number(document.getElementById('t5').value);
@@ -885,7 +882,7 @@
 		</script>
 
 		<script type="text/javascript">
-			
+
 			var selecoes = [];
 			var qtdSelecionada = []; // Quantidades selecionadas no quadro
 			var opcoes; // opcoes do select, a partir das quantidades
@@ -894,8 +891,8 @@
 			function selecao(n) {
 
 				$('#campo' + n).css("color","black");
-				
-				if($('#campo' + n).css("background-color") != "rgb(255, 255, 0)") {
+
+				if($('#campo' + n).css("background-color") != "rgb(0, 120, 0)") {
 					$('#campo' + n).css("background-color","yellow");
 					selecoes.push(n);
 					atual = n;
@@ -967,7 +964,7 @@
 			    for (var k = 0; k < 3*qtd.length; k++) {
 			   		$('#qtd').remove();
 			    }
-			  
+ 
 			    for (var k = 0; k < nome.length; k++) {
 				  	// Remove os campos que tem o nome onde a quantidade se tornou negativa
 				  	var resultado = qtd[k] - qtdSelecionada[k];

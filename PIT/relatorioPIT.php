@@ -1,19 +1,22 @@
 <?php
-	
-	// Estabelece os cookies
-	setcookie("nome", $_POST['nome'], time() + (86400 * 30), "/");
-	setcookie("siape", $_POST['siape'], time() + (86400 * 30), "/");
-	setcookie("curso", $_POST['curso'], time() + (86400 * 30), "/");
-	setcookie("campus", $_POST['campus'], time() + (86400 * 30), "/");
-	setcookie("telefone", $_POST['telefone'], time() + (86400 * 30), "/");
-	setcookie("email", $_POST['email'], time() + (86400 * 30), "/");
-	setcookie("vinculo", $_POST['vinculo'], time() + (86400 * 30), "/");
-	setcookie("regime", $_POST['regime'], time() + (86400 * 30), "/");
-  
-	require_once ('../vendor/autoload.php');
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-	// Cabeçalho
-    $html .= '
+// Estabelece os cookies
+setcookie("nome", $_POST['nome'], time() + (86400 * 30), "/");
+setcookie("siape", $_POST['siape'], time() + (86400 * 30), "/");
+setcookie("curso", $_POST['curso'], time() + (86400 * 30), "/");
+setcookie("campus", $_POST['campus'], time() + (86400 * 30), "/");
+setcookie("telefone", $_POST['telefone'], time() + (86400 * 30), "/");
+setcookie("email", $_POST['email'], time() + (86400 * 30), "/");
+setcookie("vinculo", $_POST['vinculo'], time() + (86400 * 30), "/");
+setcookie("regime", $_POST['regime'], time() + (86400 * 30), "/");
+
+require_once('../vendor/autoload.php');
+
+// Cabeçalho
+$html .= '
     	<div class="container" id="rit">
 
     		<h3><img src="../imagens/brasao.png" width="70"></h3>
@@ -66,8 +69,8 @@
 
 			<br><hr/><br>';
 
-	// Corpo
-    $html .= '
+// Corpo
+$html .= '
 			<h2>ATIVIDADES DOCENTES</h2>
 			<h3>ATIVIDADES DE ENSINO</h3>
 
@@ -78,17 +81,17 @@
 		          <th class="quant"> ' . $_POST['t1'] . ' </th>
 		        </tr>
 		        <tr>
-		          <th class="opcoes">Cursos de Especialização Técnica, Graduação e Pós-graduação (lato sensu e stricto sensu)</th>
+		          <th class="opcoes">Cursos de Especialização Técnica, Graduação, Graduação Tecnológica, Graduação Licenciatura e Pós-Graduação lato sensu</th>
 		          <th class="quant"> ' . $_POST['t2'] . ' </th>
 		        </tr>
-		        <tr>
-		          <th class="opcoes">Cursos FIC (Observar o Art.7, §4º regulamentação da carga horária)</th>
-		          <th class="quant"> ' . $_POST['t3'] . ' </th>
-		        </tr>
-		    </table>
-
-			<h4>Atividades de Manutenção ao Ensino (até 45% do Regime de Trabalho)</h4> <!-- PARTE 2 -->
-			<table class="table table-striped">
+				<tr>
+				<th class="opcoes">Cursos FIC (Observar o Art.7, §4º regulamentação da carga horária)</th>
+				<th class="quant"> ' . $_POST['t3'] . ' </th>
+			  </tr>
+	        </table>
+	        
+	        <h4>ATIVIDADES DE MANUTENÇÃO AO ENSINO (até 18 horas)</h4> <!-- PARTE 2 -->
+			<table>
 		        <tr>
 		          <th class="opcoes">Preparação + Planejamento</th>
 		          <th class="quant"> ' . $_POST['t4'] . ' </th>
@@ -97,28 +100,21 @@
 		          <th class="opcoes">Atendimento a Estudantes</th>
 		          <th class="quant"> ' . $_POST['t5'] . ' </th>
 		        </tr>
-		    </table>
-
-			<h4>Atividades de Apoio ao Ensino (2 Horas)</h4> <!-- PARTE 3 -->
-			<table class="table table-striped">
+		    
+	        </table>
+	        
+	        <h4>ATIVIDADES DE APOIO AO ENSINO (2 horas)</h4> <!-- PARTE 3 -->
+			<table>
 		        <tr>
-		          <th class="opcoes">Participação nos encontros técnico-pedagógicos, reuniões com os diversos setores da gestão</th>
-		          <th class="quant"> ' . $_POST['t6'] . ' </th>
-		        </tr>
-		    </table>			
-
-			<h4>Atividades de Orientação (até 10 Horas)</h4> <!-- PARTE 4 -->
-			<table class="table table-striped">
-		        <tr>
-		          <th class="opcoes">Orientação de TCC graduação</th>
+		          <th class="opcoes">Orientação de TCC de graduação</th>
 		          <th class="quant"> ' . $_POST['t7'] . ' </th>
 		        </tr>
 		        <tr>
-		          <th class="opcoes">Orientação de Estágio Supervisionado (Supervisor-Orientador)</th>
+		          <th class="opcoes">Orientação de Estágio Supervisionado (Supervisor/Orientador)</th>
 		          <th class="quant"> ' . $_POST['t8'] . ' </th>
 		        </tr>
 		        <tr>
-		          <th class="opcoes">Orientação de Estágio Supervisionado (Curso com regulamentação diferenciada em Conselho de Classe Profissional)</th>
+		          <th class="opcoes">Orientação de Estágio Supervisionado (curso com regulamentação diferenciada em Conselho de Classe Profissional)</th>
 		          <th class="quant"> ' . $_POST['t9'] . ' </th>
 		        </tr>
 		        <tr>
@@ -126,139 +122,212 @@
 		          <th class="quant"> ' . $_POST['t10'] . ' </th>
 		        </tr>
 		        <tr>
-		          <th class="opcoes">Programa Institucional de Bolsas de Iniciação à Docência (PIBID) ou outro programa voltado a Permanência e Êxito</th>
+		          <th class="opcoes">Programa Institucional de Bolsas de Iniciação à Docência (PIBID) ou outro programa voltado a permanência e ao êxito estudantis</th>
 		          <th class="quant"> ' . $_POST['t11'] . ' </th>
-		        </tr>
-		    </table>		
+		        </tr>		       
+	        </table>
 
-			<h4>Atividades de Ensino Extracurricular (até 25% do Regime de Trabalho)</h4>
-			<!-- PARTE 5 -->
-			<table class="table table-striped">
+
+			<h4>ATIVIDADES DE ENSINO EXTRACURRICULAR (até 25% do regime de trabalho)</h4> <!-- PARTE 3 -->
+			<table>
 		        <tr>
 		          <th class="opcoes">Responsável por Laboratório</th>
 		          <th class="quant"> ' . $_POST['t12'] . ' </th>
 		        </tr>
 		        <tr>
-		          <th class="opcoes">Projetos ou atividades complementares de ensino extracurriculares&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+		          <th class="opcoes">Projetos ou atividades complementares de ensino extracurriculares</th>
 		          <th class="quant"> ' . $_POST['t13'] . ' </th>
-		        </tr>
-		    </table>
+		        </tr>     
+	        </table>
+	        
+	        <h3>ATIVIDADES DE PESQUISA</h3>
 
-			<br><h3>ATIVIDADES DE PESQUISA APLICADA</h3> <!-- PARTE 6 -->
-
-			<table class="table table-striped">
+	        <h4>Projetos de Pesquisa</h4> <!-- PARTE 4 -->
+			<table>
+				<tr>
+				<th class="opcoes">Coordenação de projeto de pesquisa aplicada, desenvolvimento ou inovação cadastrado na PRPI com fomento IFCE ou sem recursos</th>
+				<th class="quant"> ' . $_POST['t14'] . ' </th>
+				</tr>
+				<tr>
+				<th class="opcoes">Coordenação de projeto de pesquisa aplicada, desenvolvimento ou inovação cadastrado na PRPI com captação de recursos externos ao IFCE de agências oficiais de fomento e fundações de apoio a pesquisa</th>
+				<th class="quant"> ' . $_POST['t15'] . ' </th>
+				</tr>
+				<tr>
+				<th class="opcoes">Participação na equipe de projeto de pesquisa aplicada, desenvolvimento ou inovação, cadastrado na PRPI</th>
+				<th class="quant"> ' . $_POST['t16'] . ' </th>
+				</tr>
+				<tr>
+				<th class="opcoes">Orientação ou coorientação em cursos de especialização, mestrado ou doutorado, no IFCE ou em outra instituição de ensino superior com anuência do IFCE</th>
+				<th class="quant"> ' . $_POST['t17'] . ' </th>
+				</tr>
+				<tr>
+				<th class="opcoes">Bolsista produtividade do IFCE ou agências oficiais de fomento</th>
+				<th class="quant"> ' . $_POST['t18'] . ' </th>
+				</tr>
+				<tr>
+				<th class="opcoes">Participação em programa de pós-graduação, em nível de mestrado ou doutorado, como docente COLABORADOR (do IFCE ou outra IES com anuência do IFCE)</th>
+				<th class="quant"> ' . $_POST['t19'] . ' </th>
+				</tr>
+				<tr>
+				<th class="opcoes">Participação em programa de pós-graduação, em nível de mestrado ou doutorado, como docente PERMANENTE (do IFCE ou outra IES com anuência do IFCE)</th>
+				<th class="quant"> ' . $_POST['t20'] . ' </th>
+				</tr>
+				<tr>
+				<th class="opcoes">Coordenação ou participação em equipe de projeto de pesquisa aplicada, desenvolvimento ou inovação cadastrado na PRPI com fomento externo proveniente de parcerias ou convênios com empresas privadas</th>
+				<th class="quant"> ' . $_POST['t47'] . ' </th>
+				<tr>
+				<th class="opcoes">Líder de Grupo de Pesquisa devidamente homologado pela PRPI</th>
+				<th class="quant"> ' . $_POST['t48'] . ' </th>
+				</tr>
+				<tr>
+				<th class="opcoes">Exercício da função de Editor(a)-chefe em periódico científico do IFCE</th>
+				<th class="quant"> ' . $_POST['t49'] . ' </th>
+				</tr>
+				<tr>
+				<th class="opcoes">Revisor de Periódicos ou Eventos Científicos</th>
+				<th class="quant"> ' . $_POST['t50'] . ' </th>
+				</tr>
+				<tr>
+				<th class="opcoes">Coordenação de comitê de ética em pesquisa do IFCE</th>
+				<th class="quant"> ' . $_POST['t51'] . ' </th>
+				</tr>
+				</tr>
+				<tr>
+				<th class="opcoes">Participação como membro relator de comitê de ética em pesquisa do IFCE</th>
+				<th class="quant"> ' . $_POST['t52'] . ' </th>
+				</tr>
+				</tr>
+	        </table>
+	        
+	        <h4>Produção Científica</h4> <!-- PARTE 5 -->
+			<table>
 		        <tr>
-		          <th class="opcoes">Coordenação de projeto de pesquisa aplicada, desenvolvimento cadastrado na PRPI com fomento IFCE ou sem recursos</th>
-		          <th class="quant"> ' . $_POST['t14'] . ' </th>
-		        </tr>
-		        <tr>
-		          <th class="opcoes">Coordenação de projeto de pesquisa aplicada, desenvolvimento cadastrado na PRPI com captação de recursos externos ao IFCE</th>
-		          <th class="quant"> ' . $_POST['t15'] . ' </th>
-		        </tr>
-		        <tr>
-		          <th class="opcoes">Participação na equipe de projeto de pesquisa aplicada, desenvolvimento, cadastrado na PRPI</th>
-		          <th class="quant"> ' . $_POST['t16'] . ' </th>
-		        </tr>
-		        <tr>
-		          <th class="opcoes">Orientação em especialização e Co-orientação em mestrado ou doutorado do IFCE ou em outra instituição de ensino superior com anuência do IFCE</th>
-		          <th class="quant"> ' . $_POST['t17'] . ' </th>
-		        </tr>
-		        <tr>
-		          <th class="opcoes">Bolsista produtividade PQ, DT do CNPq</th>
-		          <th class="quant"> ' . $_POST['t18'] . ' </th>
-		        </tr>
-		        <tr>
-		          <th class="opcoes">Participação em programa de Pós-graduação em nível de mestrado ou doutorado como docente COLABORADOR (do IFCE ou outra IES com anuência)</th>
-		          <th class="quant"> ' . $_POST['t19'] . ' </th>
-		        </tr>
-		        <tr>
-		          <th class="opcoes">Participação em programa de Pós-graduação em nível de mestrado ou doutorado como docente PERMANENTE (do IFCE ou outra IES com anuência)</th>
-		          <th class="quant"> ' . $_POST['t20'] . ' </th>
-		        </tr>
-		    </table>
-
-			<br><h3>ATIVIDADES DE EXTENSÃO</h3> <!-- PARTE 7 -->
-
-			<table class="table table-striped">
-		        <tr>
-		          <th class="opcoes">Coordenação de projeto/programa de extensão cadastrado na PROEXT com fomento IFCE ou sem recursos</th>
-		          <th class="quant"> ' . $_POST['t21'] . ' </th>
-		        </tr>
-		        <tr>
-		          <th class="opcoes">Coordenação de projeto/programa de extensão cadastrado na PROEXT com captação de recursos externos ao IFCE</th>
+		          <th class="opcoes">Artigos em Periódicos</th>
 		          <th class="quant"> ' . $_POST['t22'] . ' </th>
 		        </tr>
 		        <tr>
-		          <th class="opcoes">Participação na equipe de projeto ou programa de extensão, cadastrado na PROEXT, exceto aula FIC</th>
+		          <th class="opcoes">Artigos em Anais de Eventos</th>
 		          <th class="quant"> ' . $_POST['t23'] . ' </th>
 		        </tr>
 		        <tr>
-		          <th class="opcoes">Coordenação de incubadoras de empresas</th>
+		          <th class="opcoes">Capítulos de Livros</th>
 		          <th class="quant"> ' . $_POST['t24'] . ' </th>
 		        </tr>
 		        <tr>
-		          <th class="opcoes">Coordenação dos NAPNEs ou NEABIs</th>
+		          <th class="opcoes">Livros</th>
 		          <th class="quant"> ' . $_POST['t25'] . ' </th>
 		        </tr>
 		        <tr>
-		          <th class="opcoes">Participação em NAPNEs ou NEABIs</th>
+		          <th class="opcoes">Participação em Congressos e Eventos</th>
 		          <th class="quant"> ' . $_POST['t26'] . ' </th>
 		        </tr>
 		        <tr>
-		          <th class="opcoes">Cursos FIC (Quantidade de horas por curso)</th>
+		          <th class="opcoes">Orientação de Pesquisa (Iniciação Científica)</th>
 		          <th class="quant"> ' . $_POST['t27'] . ' </th>
 		        </tr>
 		        <tr>
-		          <th class="opcoes">Preparação + Planejamento dos cursos FIC</th>
+		          <th class="opcoes">Orientação de Pesquisa (Mestrado)</th>
 		          <th class="quant"> ' . $_POST['t28'] . ' </th>
 		        </tr>
 		        <tr>
-		          <th class="opcoes">Planejamento e organização de eventos de extensão</th>
+		          <th class="opcoes">Orientação de Pesquisa (Doutorado)</th>
 		          <th class="quant"> ' . $_POST['t29'] . ' </th>
 		        </tr>
-		    </table>
+		        <tr>
+		          <th class="opcoes">Outras Atividades de Pesquisa</th>
+		          <th class="quant"> ' . $_POST['t30'] . ' </th>
+		        </tr>
+	        </table>
+	        
+	        <h3>ATIVIDADES DE EXTENSÃO</h3>
 
-			<br><h3>ATIVIDADES DE GESTÃO <br> (Somente para os regimes de trabalho de 40h ou 40h com D.E.)</h3>';
+	        <h4>Projetos de Extensão</h4> <!-- PARTE 6 -->
+			<table>
+		        <tr>
+		          <th class="opcoes">Coordenação de Projeto de Extensão</th>
+		          <th class="quant"> ' . $_POST['t21'] . ' </th>
+		        </tr>
+		        <tr>
+		          <th class="opcoes">Participação em Projeto de Extensão</th>
+		          <th class="quant"> ' . $_POST['t22'] . ' </th>
+		        </tr>
+	        </table>
+	        
+	        <h4>Produção Técnica e Cultural</h4> <!-- PARTE 7 -->
+			<table>
+		        <tr>
+		          <th class="opcoes">Desenvolvimento de Material Didático e/ou Instrucional</th>
+		          <th class="quant"> ' . $_POST['t23'] . ' </th>
+		        </tr>
+		        <tr>
+		          <th class="opcoes">Produção de Recursos Educacionais Abertos (REA)</th>
+		          <th class="quant"> ' . $_POST['t24'] . ' </th>
+		        </tr>
+		        <tr>
+		          <th class="opcoes">Desenvolvimento de Software Educacional</th>
+		          <th class="quant"> ' . $_POST['t25'] . ' </th>
+		        </tr>
+		        <tr>
+		          <th class="opcoes">Desenvolvimento de Aplicativos</th>
+		          <th class="quant"> ' . $_POST['t26'] . ' </th>
+		        </tr>
+		        <tr>
+		          <th class="opcoes">Elaboração de Projetos de Extensão</th>
+		          <th class="quant"> ' . $_POST['t27'] . ' </th>
+		        </tr>
+		        <tr>
+		          <th class="opcoes">Participação em Eventos de Extensão</th>
+		          <th class="quant"> ' . $_POST['t28'] . ' </th>
+		        </tr>
+		        <tr>
+		          <th class="opcoes">Outras Atividades de Extensão</th>
+		          <th class="quant"> ' . $_POST['t29'] . ' </th>
+		        </tr>
+	        </table>
+			<br>
+			<br>
+			<br>
+			<br>
+	        
+	        <h3>ATIVIDADES DE GESTÃO</h3>
 
-		if($_POST['regime'] == 40)
-			$html .= '
-				<h4>Atividades de Gestão Institucional e Acadêmica</h4> <!-- PARTE 8 -->
-				<table class="table table-striped">
-			        <tr>
-			          <th class="opcoes">Coordenador de Curso</th>
-			          <th class="quant"> ' . $_POST['t30'] . ' </th>
-			        </tr>
-			        <tr>
-			          <th class="opcoes">Coordenador de Setor</th>
-			          <th class="quant"> ' . $_POST['t31'] . ' </th>
-			        </tr>
-			        <tr>
-			          <th class="opcoes">Chefe de Departamento</th>
-			          <th class="quant"> ' . $_POST['t32'] . ' </th>
-			        </tr>
-			        <tr>
-			          <th class="opcoes">Diretores de Área/Setor</th>
-			          <th class="quant"> ' . $_POST['t33'] . ' </th>
-			        </tr>
-			        <tr>
-			          <th class="opcoes">Assessor da Reitoria</th>
-			          <th class="quant"> ' . $_POST['t34'] . ' </th>
-			        </tr>
-			        <tr>
-			          <th class="opcoes">Coordenador de Implantação de Campus</th>
-			          <th class="quant"> ' . $_POST['t35'] . ' </th>
-			        </tr>
-			        <tr>
-			          <th class="opcoes">Assistente de Pró-Reitoria ou Chefe de Gabinete de Campus</th>
-			          <th class="quant"> ' . $_POST['t36'] . ' </th>
-			        </tr>
-			        <tr>
-			          <th class="opcoes">Coordenador de programa institucional: ensino, pesquisa aplicada ou extensão&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-			          <th class="quant"> ' . $_POST['t37'] . ' </th>
-			        </tr>
-			    </table>';
-			
-		$html .= '
+	        <h4>Coordenação e Chefia</h4> <!-- PARTE 8 -->
+			<table>
+		        <tr>
+		          <th class="opcoes">Coordenador de Curso</th>
+		          <th class="quant"> ' . $_POST['t30'] . ' </th>
+		        </tr>
+		        <tr>
+		          <th class="opcoes">Coordenador de Setor</th>
+		          <th class="quant"> ' . $_POST['t31'] . ' </th>
+		        </tr>
+				<tr>
+					<th class="opcoes">Chefe de Departamento</th>
+					<th class="quant"> ' . $_POST['t32'] . ' </th>
+				</tr>
+				<tr>
+					<th class="opcoes">Diretores de Área/Setor</th>
+					<th class="quant"> ' . $_POST['t33'] . ' </th>
+				</tr>
+				<tr>
+					<th class="opcoes">Assessor da Reitoria</th>
+					<th class="quant"> ' . $_POST['t34'] . ' </th>
+				</tr>
+				<tr>
+					<th class="opcoes">Coordenador de Implantação de Campus</th>
+					<th class="quant"> ' . $_POST['t35'] . ' </th>
+				</tr>
+				<tr>
+					<th class="opcoes">Assistente de Pró-Reitoria ou Chefe de Gabinete de Campus</th>
+					<th class="quant"> ' . $_POST['t36'] . ' </th>
+				</tr>
+				<tr>
+					<th class="opcoes">Coordenador de programa institucional: ensino, pesquisa aplicada ou extensão</th>
+					<th class="quant"> ' . $_POST['t37'] . ' </th>
+				</tr>
+	        </table>';
+
+$html .= '
 			<h4>Atividades em Comissões ou de Fiscalização</h4> <!-- PARTE 9 -->
 			<table class="table table-striped">
 		        <tr>
@@ -305,11 +374,20 @@
 			        <th class="totalCSS"><h3>Total</h3></th>
 			        <th class="quant"> <textfield> ' . $_POST['total'] . ' </textfield> </th>
 		        </tr>
-		    </table>
-
-		    <br><br><hr/><br><br>
-      ';
-    $html .= '
+		    </table> 	
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>';
+$html .= '
     		<h2>DISTRIBUIÇÃO DE CARGA <br>HORÁRIA DO DOCENTE NO SEMESTRE</h2>
     		<table class="table table-striped">
               <tr>
@@ -424,51 +502,54 @@
                 <th class="celulaQuadro"> ' . $_POST['campo59'] . ' </th>
                 <th class="celulaQuadro"> ' . $_POST['campo60'] . ' </th>
               </tr>
-            </table>
+            </table> ';
 
-            
-    ';
 
-    /* Rodapé
-    $html .= '
-    		<br><br><hr/><br><br>
-	    	<fieldset class="caixa1">
-				<h4>Parecer da Coordenação:</h4>
-			</fieldset>
 
-			<br><br>
 
-			<fieldset class="caixa2">
-				<h4>Professor (a)</h4>
-			</fieldset>
+/* Rodapé
+$html .= '
+		<br><br><hr/><br><br>
+		<fieldset class="caixa1">
+			<h4>Parecer da Coordenação:</h4>
+		</fieldset>
 
-			<fieldset class="caixa2">
-				<h4>Coord. de Curso</h4>
-			</fieldset>
+		<br><br>
 
-			<fieldset class="caixa2">
-				<h4>Chefe de Depto./ Diretor de Ensino</h4>
-			</fieldset>
+		<fieldset class="caixa2">
+			<h4>Professor (a)</h4>
+		</fieldset>
 
-			<br><br><br>
+		<fieldset class="caixa2">
+			<h4>Coord. de Curso</h4>
+		</fieldset>
 
-			<h5>_________________________________, _________ de ________________________ de _______________</h5>
-		</div>
-    ';
-	
-  */
-	ob_clean();//Limpa o buffer de saída 
-  
-	$mpdf = new \Mpdf\Mpdf(['tempDir' => '../vendor/mpdf/mpdf/tmp']); 
-	$mpdf = new \Mpdf\Mpdf();
-	$mpdf->SetDisplayMode('fullpage');
+		<fieldset class="caixa2">
+			<h4>Chefe de Depto./ Diretor de Ensino</h4>
+		</fieldset>
 
-	$css = file_get_contents("../css/Relatorio.css");
-	$mpdf->WriteHTML($css,1);
+		<br><br><br>
 
-	$mpdf->WriteHTML($html);
-	$mpdf->Output('relatorioPIT.pdf', 'I');//'D'
+		<h5>_________________________________, _________ de ________________________ de _______________</h5>
+	</div>
+';
 
-	exit;
-	
+*/
+
+
+
+ob_clean(); //Limpa o buffer de saída 
+
+$mpdf = new \Mpdf\Mpdf(['tempDir' => '../vendor/mpdf/mpdf/tmp']);
+$mpdf = new \Mpdf\Mpdf();
+$mpdf->SetDisplayMode('fullpage');
+
+$css = file_get_contents("../css/Relatorio.css");
+$mpdf->WriteHTML($css, 1);
+
+$mpdf->WriteHTML($html);
+$mpdf->Output('relatorioPIT.pdf', 'I'); //'D'
+
+exit;
+
 ?>
