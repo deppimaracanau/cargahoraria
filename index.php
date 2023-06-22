@@ -32,9 +32,6 @@
 
         <div class="collapse navbar-collapse" id="barra-navegacao">
           <ul class="nav navbar-nav navbar-right">
-            <!-- <li> <a href="index.php">INÍCIO</a> </li>
-            <li> <a href="PIT/orientacoesPIT.php">PIT</a> </li>
-            <li> <a href="RIT/orientacoesRIT.php">RIT</a> </li> -->
             <li> <a href="#" data-toggle="modal" data-target="#janelaAjuda">AJUDA</a> </li>
           </ul>
         </div>   
