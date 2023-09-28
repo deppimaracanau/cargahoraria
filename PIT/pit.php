@@ -111,6 +111,7 @@
 	            Regime de Trabalho:
 	            <select class="form-control" name="regime" onchange="regimeConfig()" id="regime">
 	                <option value="">Selecione</option>
+					<option value="Horário Especial(art. 98, §3º da Lei nº 8.112 de 1990)">30h</option>
 	                <option value="40h D.E.">40h D.E.</option>
 	                <option value="40h">40h</option>
 	                <option value="20h">20h</option>
