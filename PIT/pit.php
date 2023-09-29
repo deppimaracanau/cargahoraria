@@ -1033,73 +1033,47 @@
 		<!-- Verifica o preenchimento dos dados -->
 		<script type="text/javascript">
 			function verificacao() {
-				if($('#semestre').val() == "") {
-		        	alert('Por favor, preencha o campo Semestre!');
-		        	document.all['semestre'].focus();
-		        	return false;
-		        }
-		        if($('#nome').val() == "") {
-		        	alert('Por favor, preencha o campo Nome!');
-		        	document.all['nome'].focus();
-		        	return false;
-		        }
-		        if($('#siape').val() == "") {
-		        	alert('Por favor, preencha o campo SIAPE!');
-		        	document.all['siape'].focus();
-		        	return false;
-		        }
-		        if($('#curso').val() == "") {
-		        	alert('Por favor, preencha o campo Curso ou Departamento!');
-		        	document.all['curso'].focus();
-		        	return false;
-		        }
-		        if($('#campus').val() == "") {
-		        	alert('Por favor, preencha o campo Campus!');
-		        	document.all['campus'].focus();
-		        	return false;
-		        }
-		        if($('#telefone').val() == "") {
-		        	alert('Por favor, preencha o campo Fone!');
-		        	document.all['telefone'].focus();
-		        	return false;
-		        }
-		        if($('#email').val() == "") {
-		        	alert('Por favor, preencha o campo Email!');
-		        	document.all['email'].focus();
-		        	return false;
-		        }
-		        if($('#vinculo').val() == "") {
-		        	alert('Por favor, preencha o campo Tipo de Vínculo!');
-		        	document.all['vinculo'].focus();
-		        	return false;
-		        }
-		        if($('#regime').val() == "") {
-		        	alert('Por favor, preencha o campo Regime de Trabalho!');
-		        	document.all['regime'].focus();
-		        	return false;
-		        }
+				// Lista de campos a serem verificados
+				const campos = [
+					{ id: 'semestre', mensagem: 'Por favor, preencha o campo Semestre!' },
+					{ id: 'nome', mensagem: 'Por favor, preencha o campo Nome!' },
+					{ id: 'siape', mensagem: 'Por favor, preencha o campo SIAPE!' },
+					{ id: 'curso', mensagem: 'Por favor, preencha o campo Curso ou Departamento!' },
+					{ id: 'campus', mensagem: 'Por favor, preencha o campo Campus!' },
+					{ id: 'telefone', mensagem: 'Por favor, preencha o campo Fone!' },
+					{ id: 'email', mensagem: 'Por favor, preencha o campo Email!' },
+					{ id: 'vinculo', mensagem: 'Por favor, preencha o campo Tipo de Vínculo!' },
+					{ id: 'regime', mensagem: 'Por favor, preencha o campo Regime de Trabalho!' }
+				];
 
-		        // veririficacao da distribuicao de horas
-		        var totalPreen = 0;
-		        for(var k = 0; k<qtd.length; k++) {
-		        	totalPreen += qtdSelecionada[k];
-		        }
-		        if($('#regime').val() == '20h') {
-		        	if(totalPreen < 20){
-		        		alert('Por favor, distribua todas as 20 horas no quadro!');
-		        		return false;
-		        	}
-		        } else {
-					if (totalPreen > 30 || totalPreen <= 40) {
-						alert('Horário especial - A concessão do horário especial ao servidor amparado pelo §3º do art. 98 da Lei nº 8.112, de 1990, objetiva possibilitar ao servidor reduzir a carga horária diária de trabalho para prestar assistência ao cônjuge, filho ou dependente com deficiência, sem necessidade de compensação de horário - Destaca-se que a constatação da deficiência será feita de acordo com o previsto no § 1º, do art. 5º, do Decreto nº 5.296, de 2004 e no inciso I, do art. 3º do Decreto nº 3.298, de1999. ');
+				// Verifica campos vazios
+				for (const campo of campos) {
+					const valor = $('#' + campo.id).val();
+					if (valor === '') {
+						alert(campo.mensagem);
+						$('#' + campo.id).focus();
 						return false;
-    				}
-		        	if(totalPreen < 40) {
-		        		alert('Por favor, distribua todas as 40 horas no quadro!');
-		        		return false;
-		        	}
-		        }
-		    }
+					}
+				}
+
+				// Verifica distribuição de horas
+				const totalPreen = qtdSelecionada.reduce((acc, qtd) => acc + qtd, 0);
+				const regime = $('#regime').val();
+
+				if (regime === '20h' && totalPreen < 20) {
+					alert('Por favor, distribua todas as 20 horas no quadro!');
+					return false;
+				} else if (regime > '20h' && (totalPreen > 30 || totalPreen < 40)) {
+					alert('Horário especial - A concessão do horário especial ao servidor amparado pelo §3º do art. 98 da Lei nº 8.112, de 1990, objetiva possibilitar ao servidor reduzir a carga horária diária de trabalho para prestar assistência ao cônjuge, filho ou dependente com deficiência, sem necessidade de compensação de horário - Destaca-se que a constatação da deficiência será feita de acordo com o previsto no § 1º, do art. 5º, do Decreto nº 5.296, de 2004 e no inciso I, do art. 3º do Decreto nº 3.298, de1999.');
+					return false;
+				} else if (totalPreen < 40) {
+					alert('Por favor, distribua todas as 40 horas no quadro!');
+					return false;
+				}
+
+				// Todas as verificações passaram
+				return true;
+			}
 		</script>
 
 	</body>
