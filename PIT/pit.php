@@ -664,7 +664,13 @@
 						q27: "Max: 200",
 						q28: "Max: 100"
 					},
-					"30h": {},
+					"30h": {
+						q1: "Max: 12",
+						q2: "Max: 12",
+						q3: "Max: 200",
+						q27: "Max: 200",
+						q28: "Max: 100"
+					},
 					"40h": {
 						q1: "Max: 20",
 						q2: "Max: 20",
@@ -1079,7 +1085,7 @@
 				if (regime === '20h' && totalPreen < 20) {
 					alert('Por favor, distribua todas as 20 horas no quadro!');
 					return false;
-				} else if (regime !== '20h' && (totalPreen > 30 || totalPreen <= 40)) {
+				} else if (regime !== '20h' && (totalPreen > 30 || totalPreen < 40)) {
 					alert('Horário especial - A concessão do horário especial ao servidor amparado pelo §3º do art. 98 da Lei nº 8.112, de 1990, objetiva possibilitar ao servidor reduzir a carga horária diária de trabalho para prestar assistência ao cônjuge, filho ou dependente com deficiência, sem necessidade de compensação de horário - Destaca-se que a constatação da deficiência será feita de acordo com o previsto no § 1º, do art. 5º, do Decreto nº 5.296, de 2004 e no inciso I, do art. 3º do Decreto nº 3.298, de1999.');
 					return false;
 				} else if (totalPreen < 40) {
