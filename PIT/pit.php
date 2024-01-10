@@ -647,234 +647,257 @@
 
 		    //Configuração do regime de trabalho
 		    function regimeConfig() {
-		        for (var k = 1; k <= qtdPerguntas; k++) // zera as quantidades
-		          if(k != 4 && k != 5 && k != 6)
-		          document.getElementById('q' + k).value = "";
+				for (var k = 1; k <= qtdPerguntas; k++) {
+					if (k != 4 && k != 5 && k != 6) {
+						document.getElementById('q' + k).value = "";
+					}
+				}
 
-		        dados(1); // zera os totais
+				dados(1); // Zera os totais
 
-		        if(document.getElementById('regime').value == "20h") {
-		          $('#gestaoTitulo').addClass('hidden');
-		          $('#gestao').addClass('hidden');
+				var regimeValue = document.getElementById('regime').value;
+				var placeholders = {
+					"20h": {
+						q1: "Max: 12",
+						q2: "Max: 12",
+						q3: "Max: 200",
+						q27: "Max: 200",
+						q28: "Max: 100"
+					},
+					"30h": {
+						q1: "Max: 12",
+						q2: "Max: 12",
+						q3: "Max: 200",
+						q27: "Max: 200",
+						q28: "Max: 100"
+					},
+					"40h": {
+						q1: "Max: 20",
+						q2: "Max: 20",
+						q3: "Max: 400",
+						q27: "Max: 240",
+						q28: "Max: 120"
+					}
+				};
 
-		          document.getElementById('q1').setAttribute('placeholder', 'Max: 12');
-		          document.getElementById('q1').setAttribute('max', '12');
+				// Aplica configurações com base no regime
+				$('#gestaoTitulo').toggleClass('hidden', regimeValue === "20h");
+				$('#gestao').toggleClass('hidden', regimeValue === "20h");
 
-		          document.getElementById('q2').setAttribute('placeholder', 'Max: 12');
-		          document.getElementById('q2').setAttribute('max', '12');
+				// Aplica os placeholders e valores máximos
+				for (var key in placeholders[regimeValue]) {
+					if (placeholders[regimeValue].hasOwnProperty(key)) {
+						var element = document.getElementById(key);
+						if (element) {
+							element.setAttribute('placeholder', placeholders[regimeValue][key]);
+							element.setAttribute('max', placeholders[regimeValue][key].split(':')[1].trim());
+						}
+					}
+				}
 
-		          document.getElementById('q3').setAttribute('placeholder', 'Max: 200');
-		          document.getElementById('q3').setAttribute('max', '200');
+				gerarLista();
+			}
 
-		          document.getElementById('q27').setAttribute('placeholder', 'Max: 200');
-		          document.getElementById('q27').setAttribute('max', '200');
-
-		          document.getElementById('q28').setAttribute('placeholder', 'Max: 100');
-		          document.getElementById('q28').setAttribute('max', '100');
-		          
-		        } else {
-		          $('#gestaoTitulo').removeClass('hidden');
-		          $('#gestao').removeClass('hidden');
-
-		          document.getElementById('q1').setAttribute('placeholder', 'Max: 20');
-		          document.getElementById('q1').setAttribute('max', '20');
-
-		          document.getElementById('q2').setAttribute('placeholder', 'Max: 20');
-		          document.getElementById('q2').setAttribute('max', '20');
-
-		          document.getElementById('q3').setAttribute('placeholder', 'Max: 400');
-		          document.getElementById('q3').setAttribute('max', '400');
-
-		          document.getElementById('q27').setAttribute('placeholder', 'Max: 240');
-		          document.getElementById('q27').setAttribute('max', '240');
-
-		          document.getElementById('q28').setAttribute('placeholder', 'Max: 120');
-		          document.getElementById('q28').setAttribute('max', '120');
-		        }
-
-		        gerarLista();
-		    }
 
 			//Atualiza o valor do total a cada alteração
 			function dados(n) {
-
 				// Zerar as opções da parte 8, pois somente um deve ser escolhido
-				if(30 <= n && n <= 37)
+				if (30 <= n && n <= 37) {
 					for (var k = 30; k <= 37; k++) {
-						if(k != n)
+						if (k !== n) {
 							document.getElementById('q' + k).value = 0;
+						}
 					}
+				}
 
 				calcularTotais();
 				carregarVetor();
 
 				// Estabelece a carga máxima, mesmo que ultrapasse
-				if(somaGeral() > 40)
+				var totalGeral = somaGeral();
+				if (totalGeral > 40) {
 					document.getElementById('total').value = 40;
+				}
 
 				atualizaTabela();
-
 				atualizacaoCamposSelecao();
-			}
+}
+
 
 			// Calcular os totais
 			function calcularTotais() {
+				for (var k = 1; k <= qtdPerguntas; k++) {
+					var prod = 1;
 
-			  	for (var k = 1; k <= qtdPerguntas; k++) {
-				    var prod = 1;
-				    // 47 ao 52 (Parte 6)
-				    if(k == 3 || k == 27 || k == 28) {
-				      prod = 0.05;
+					switch (k) {
+						case 3:
+						case 27:
+						case 28:
+							prod = 0.05;
+							break;
+						case 5:
+							prod = 0.2;
+							break;
+						case 4:
+							prod = 0.8;
+							break;
+						case 9:
+						case 10:
+						case 17:
+						case 48:
+						case 50:
+						case 52:
+							prod = 2;
+							break;
+						case 16:
+						case 23:
+						case 26:
+						case 38:
+							prod = 3;
+							break;
+						case 14:
+						case 21:
+						case 40:
+						case 44:
+						case 45:
+						case 49:
+						case 51:
+							prod = 4;
+							break;
+						case 25:
+							prod = 5;
+							break;
+						case 15:
+						case 22:
+						case 47:
+							prod = 6;
+							break;
+						case 12:
+						case 19:
+						case 39:
+							prod = 8;
+							break;
+						case 11:
+							prod = 10;
+							break;
+						case 18:
+						case 20:
+						case 24:
+							prod = 16;
+							break;
+						default:
+							if (30 <= k && k <= 37) {
+								prod = 18;
+							}
+					}
 
-				    } else if(k == 5) {
-				      prod = 0.2;
-
-				    } else if(k == 4) {
-				      prod = 0.8;
-
-				    } else if(k == 9 || k == 10 || k == 17 || k == 48 || k == 50 || k == 52) {
-				      prod = 2;
-
-				    } else if(k == 16 || k == 23 || k == 26 || k == 38) {
-				      prod = 3;
-
-				    } else if(k == 14 || k == 21 || k == 40 || k == 44 || k == 45  || k == 49 || k == 51) {
-				      prod = 4;
-
-				    } else if(k == 25) {
-				      prod = 5;
-
-				    } else if(k == 15 || k == 22 || k == 47) {
-				      prod = 6;
-
-				    } else if(k == 12 || k == 19 || k == 39) {
-				      prod = 8;
-
-				    } else if(k == 11) {
-				      prod = 10;
-
-				    } else if(k == 18 || k == 20 || k == 24) {
-				      prod = 16;
-
-				    } else if(30 <= k && k <= 37) {
-				      prod = 18;
-				    }
-
-				    if(k != 4 && k != 5 && k != 6) {
-				    	document.getElementById('t' + k).value = Number(document.getElementById('q' + k).value) * prod;
-				    } else if(k==6) { // não precisa passar pelo 4 e 5 (repetitivo)
+					if (k != 4 && k != 5 && k != 6) {
+						document.getElementById('t' + k).value = Number(document.getElementById('q' + k).value) * prod;
+					} else if (k === 6) {
 						var A1 = Number(document.getElementById('t1').value);
 						var A2 = Number(document.getElementById('t2').value);
 						var A3 = Number(document.getElementById('t3').value);
 
-						// Limita a ser até 20
 						var x = (A1 + A2 + A3) > 20 ? 20 : (A1 + A2 + A3);
 
-						// Calculos do campo 4 e 5
-		            	if(document.getElementById('regime').value == "20h") {
+						var t5Value = Math.min(2, Math.ceil(x * 0.2));
+						document.getElementById('t5').value = t5Value;
 
-							document.getElementById('t5').value = Math.ceil(x * 0.2) > 2 ? 2 : Math.ceil(x * 0.2);
+						var t4Value = Math.min(4, Math.ceil(x - t5Value));
+						document.getElementById('t4').value = t4Value;
 
-							var T6 = x - Number(document.getElementById('t5').value);
-							T6 = Math.ceil(T6);
-
-							if(T6>4)
-								document.getElementById('t4').value = 4;
-							else
-								document.getElementById('t4').value = T6;
-
-			            } else {
-
-							document.getElementById('t5').value = Math.ceil(x * 0.2);
-
-							var T6 = x - Number(document.getElementById('t5').value);
-							T6 = Math.ceil(T6);
-
-							if(T6>14)
-								document.getElementById('t4').value = 14;
-							else
-								document.getElementById('t4').value = T6;
-			            }
-
-			            // cálculos do campo 6
-		            	if(A1 != 0 || A2 != 0 || A3 != 0)
-		               		document.getElementById('t6').value = 2;
-		              	else
-		                	document.getElementById('t6').value = 0;
+						var t6Value = (A1 !== 0 || A2 !== 0 || A3 !== 0) ? 2 : 0;
+						document.getElementById('t6').value = t6Value;
 					}
 				}
 			}
+
 
 			// Horas Individuais no Vetor
 			function carregarVetor() {
-			  qtd = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-			  for (var k = 1; k <= qtdPerguntas; k++) {
-			    var num = Number(document.getElementById('t' + k).value);
-			    if(k<=3) {
-			      qtd[0] += num;
-			    } else if(k==4) {
-			      qtd[1] += num;
-			    } else if(k==5) {
-			      qtd[2] += num;
-			    } else if(k==6) {
-			      qtd[3] += num;
-			    } else if(k<=11) {
-			      qtd[4] += num;
-			    } else if(k<=13) {
-			      qtd[5] += num;
-			    } else if(k<=20) {
-			      qtd[6] += num;
-			    } else if(k<=29) {
-			      qtd[7] += num;
-			    } else if(k<=37) {
-			      qtd[8] += num;
-			    } else if(k<=46) {
-			      qtd[9] += num;
-			    } else if(k<=qtdPerguntas) {
-			      qtd[6] += num; // Acrescimo posterior na parte 6 (soma do 47 ao 52)
-			    }
-			  }
+				qtd = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-			  gerarLista();
+				for (var k = 1; k <= qtdPerguntas; k++) {
+					var num = Number(document.getElementById('t' + k).value);
+					switch (true) {
+						case (k <= 3):
+							qtd[0] += num;
+							break;
+						case (k === 4):
+							qtd[1] += num;
+							break;
+						case (k === 5):
+							qtd[2] += num;
+							break;
+						case (k === 6):
+							qtd[3] += num;
+							break;
+						case (k <= 11):
+							qtd[4] += num;
+							break;
+						case (k <= 13):
+							qtd[5] += num;
+							break;
+						case (k <= 20):
+							qtd[6] += num;
+							break;
+						case (k <= 29):
+							qtd[7] += num;
+							break;
+						case (k <= 37):
+							qtd[8] += num;
+							break;
+						case (k <= 46):
+							qtd[9] += num;
+							break;
+						default:
+							qtd[6] += num; // Acrescimo posterior na parte 6 (soma do 47 ao 52)
+					}
+				}
+
+				gerarLista();
 			}
+
 
 			// Soma Geral
 			function somaGeral() {
-			  var total = 0;
-			  for (var k = 0; k < qtd.length; k++)
-			    total += qtd[k];
-			  document.getElementById('total').value = total;
-			  return total;
+				var total = qtd.reduce(function(acc, currentValue) {
+					return acc + currentValue;
+				}, 0);
+
+				$('#total').val(total);
+				return total;
 			}
+
 
 			// Atualiza a lista de opções para seleção
 			function atualizacaoCamposSelecao() {
-				for (var k = 1; k <= qtdCampos; k++) {
-					if(document.getElementById('opVazio' + k) == null) {
-						$('#campo' + k).append('<option id="opVazio' + k + '" selected value=""> </option>');
-					}
+			for (var k = 1; k <= qtdCampos; k++) {
+				if ($('#opVazio' + k).length === 0) {
+					$('#campo' + k).append('<option id="opVazio' + k + '" selected value=""> </option>');
+				}
 
-					for (var j = 0; j < nome.length; j++) {
-			    		if(qtd[j] != 0)
-							if(document.getElementById(nome[j] + k) == null) {
-								$('#campo' + k).append('<option id="' + nome[j] + k + '" value="' + nome[j] + '">' + nome[j] + '</option>');
-							}
+				for (var j = 0; j < nome.length; j++) {
+					if (qtd[j] !== 0 && $('#' + nome[j] + k).length === 0) {
+						$('#campo' + k).append('<option id="' + nome[j] + k + '" value="' + nome[j] + '">' + nome[j] + '</option>');
 					}
 				}
 			}
+		}
+
 
 
 			/* ################## Montagem da Tabela de Horários ################## */
 			// Função do botão reiniciar os campos de seleção de horário
 			function reiniciar() {
-				qtdSelecionada = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-			    for (var k = 1; k <= qtdCampos; k++)
-				    $('#campo' + k).val('');
+				qtdSelecionada.fill(0);  // Preenche o array qtdSelecionada com zeros
+				for (var k = 1; k <= qtdCampos; k++)
+					$('#campo' + k).val('');
 				atualizaTabela();
 			}
 
 			function guardaSelecaoDoMomento(n) {
-				opcaoAtual = document.getElementById('campo' + n).value;
+				opcaoAtual = $('#campo' + n).val();
 			}
 
 		</script>
@@ -887,147 +910,146 @@
 
 			// Clicando o botão
 			function selecao(n) {
+				const campoId = '#campo' + n;
+				const campo = $(campoId);
 
-				$('#campo' + n).css("color","black");
-
-				if($('#campo' + n).css("background-color") != "rgb(0, 120, 0)") {
-					$('#campo' + n).css("background-color","yellow");
+				if (campo.css("background-color") !== "rgb(0, 120, 0)") {
+					campo.css({
+						"background-color": "yellow",
+						"color": "black"
+					});
 					selecoes.push(n);
 					atual = n;
 				} else {
-					$('#campo' + n).css("background-color","white");
+					campo.css({
+						"background-color": "white",
+						"color": "black"
+					});
 					selecoes.splice(selecoes.indexOf(n), 1);
 				}
-
 			}
+
 
 			// Botão de seleção multipla
 			function selecaoMultipla() {
-				var posicao = nome.indexOf($('#escolhas').val())
+				const escolhaSelecionada = $('#escolhas').val();
+				const posicao = nome.indexOf(escolhaSelecionada);
 
-				if(qtd[posicao]-qtdSelecionada[posicao] < selecoes.length) {
+				if (qtd[posicao] - qtdSelecionada[posicao] < selecoes.length) {
 					alert("Quantidade selecionada excede ao da tabela!");
 					return;
 				}
 
-				for (var n = 0; n < selecoes.length; n++) {
-					$('#campo' + selecoes[n]).val($('#escolhas').val());
-					$('#campo' + selecoes[n]).css("background-color","white");
-					$('#campo' + selecoes[n]).css("color","black");
+				for (let n = 0; n < selecoes.length; n++) {
+					const campoId = '#campo' + selecoes[n];
+					$(campoId).val(escolhaSelecionada);
+					$(campoId).css({
+						"background-color": "white",
+						"color": "black"
+					});
 				}
+
 				// Zerando o vetor
-				selecoes = []; 
+				selecoes = [];
 
 				calculoReducao();
 				atualizaTabela();
 				gerarLista();
-
 			}
 
 			//Criação da variável opções
 			function gerarLista() {
-				opcoes = '<option selected disabled>Selecione o valor a ser carregado nos campos selecionados:</option>';
-				opcoes += '<option value="">Limpar campos selecionados</option>';
+			let opcoes = '<option selected disabled>Selecione o valor a ser carregado nos campos selecionados:</option>';
+			opcoes += '<option value="">Limpar campos selecionados</option>';
 
-				for (var j = 0; j < nome.length; j++) {
-					var diferenca = qtd[j] - qtdSelecionada[j];
-		    		if(diferenca != 0)
-						opcoes += '<option value="' + nome[j] + '">' + nome[j] + '</option>';
+			for (let j = 0; j < nome.length; j++) {
+				const diferenca = qtd[j] - qtdSelecionada[j];
+				if (diferenca !== 0) {
+					opcoes += `<option value="${nome[j]}">${nome[j]}</option>`;
 				}
-
-				$('#escolhas').empty();
-				$('#escolhas').append(opcoes);
 			}
+
+			$('#escolhas').empty().append(opcoes);
+		}
+
 
 
 			//Reducao das horas colocadas na tabela
-			function calculoReducao(){
-				var posicao;
-				var nomeSelecionado = $('#escolhas').val();
+			function calculoReducao() {
+				const nomeSelecionado = $('#escolhas').val();
+				const posicao = nome.indexOf(nomeSelecionado);
 
-				for (var l = 0; l < nome.length; l++) {
-					if (nomeSelecionado == nome[l]) {
-						posicao = l;
-						break;
-					}
+				if (posicao !== -1 && qtd[posicao] - qtdSelecionada[nomeSelecionado] === 0) {
+					// Não permite colocar uma seleção que esteja com qtd vazia
+					$('#campo' + n).val('');
 				}
-
-				if(qtd[posicao] - qtdSelecionada[posicao] == 0) // Não permite colocar uma seleção que esteja com qtd vazia
-					document.getElementById('campo' + n).value = "";
 			}
 
+
 			// Atualiza a tabela das quantidades
-			function atualizaTabela(){
+			function atualizaTabela() {
+				const qtdTabela = $('#qtdTabela');
+				const nomeTabela = $('#nomeTabela');
+				
+				// Remove as colunas existentes
+				qtdTabela.empty();
+				nomeTabela.empty();
+
 				contaSelecoes();
-			    for (var k = 0; k < 3*qtd.length; k++) {
-			   		$('#qtd').remove();
-			    }
- 
-			    for (var k = 0; k < nome.length; k++) {
-				  	// Remove os campos que tem o nome onde a quantidade se tornou negativa
-				  	var resultado = qtd[k] - qtdSelecionada[k];
-				  	if(resultado < 0) {
-				  		resultado = 0;
-				  		for (var l = 1; l <= qtdCampos; l++) {
-				  			if($('#campo' + l).val() == nome[k])
-				  				$('#campo' + l).val('');
-			    		}
 
-			    		// Condição para remover da lista o que for igual a zero
-			    		for (var l = 1; l <= qtdCampos; l++) {
-							$('#' + nome[k] + l).remove();
-						}
-				  	}
+				for (let k = 0; k < nome.length; k++) {
+					let resultado = qtd[k] - qtdSelecionada[nome[k]];
+					if (resultado < 0) {
+						resultado = 0;
+						// Limpa os campos com excesso de seleções
+						$(`#campo${qtdCampos} option[value="${nome[k]}"]`).prop('selected', false);
+					}
 
-				  	$('#nomeTabela').append('<th id="qtd"><center>' + nome[k] + '</center></th>');
-				    $('#qtdTabela').append('<th id="qtd"><center>' + resultado + '</center></th>');
-			    } 
+					nomeTabela.append('<th id="qtd"><center>' + nome[k] + '</center></th>');
+					qtdTabela.append('<th id="qtd"><center>' + resultado + '</center></th>');
+				}
 			}
 
 			// Soma os valores das seleções
 			function contaSelecoes() {
-				qtdSelecionada = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-			    for (var k = 1; k <= qtdCampos; k++) {
-				    var nomeCampo = $('#campo' + k).val();
-				    if(nomeCampo == nome[0]) {
-				    	qtdSelecionada[0]++;
-				    } else if(nomeCampo == nome[1]) {
-				    	qtdSelecionada[1]++;
-				    } else if(nomeCampo == nome[2]) {
-				    	qtdSelecionada[2]++;
-				    } else if(nomeCampo == nome[3]) {
-				    	qtdSelecionada[3]++;
-				    } else if(nomeCampo == nome[4]) {
-				    	qtdSelecionada[4]++;
-				    } else if(nomeCampo == nome[5]) {
-				    	qtdSelecionada[5]++;
-				    } else if(nomeCampo == nome[6]) {
-				    	qtdSelecionada[6]++;
-				    } else if(nomeCampo == nome[7]) {
-				    	qtdSelecionada[7]++;
-				    } else if(nomeCampo == nome[8]) {
-				    	qtdSelecionada[8]++;
-				    } else if(nomeCampo == nome[9]) {
-				    	qtdSelecionada[9]++;
-				    }
-				  }
+			const qtdSelecionada = {};
+
+			// Inicializa a contagem para todos os nomes
+			for (const n of nome) {
+				qtdSelecionada[n] = 0;
 			}
+
+			for (let k = 1; k <= qtdCampos; k++) {
+				const nomeCampo = $('#campo' + k).val();
+				if (nomeCampo in qtdSelecionada) {
+					qtdSelecionada[nomeCampo]++;
+				}
+			}
+
+			return qtdSelecionada;
+		}
 
 		</script>
 
 
 		<script type="text/javascript">
-			$(document).ready( function() {
-				var info = "<?= $_COOKIE['nome']; ?>"; $("#nome").val(info);
-				var info = "<?= $_COOKIE['siape']; ?>"; $("#siape").val(info);
-				var info = "<?= $_COOKIE['curso']; ?>"; $("#curso").val(info);
-				var info = "<?= $_COOKIE['campus']; ?>"; $("#campus").val(info);
-				var info = "<?= $_COOKIE['telefone']; ?>"; $("#telefone").val(info);
-				var info = "<?= $_COOKIE['email']; ?>"; $("#email").val(info);
-				var info = "<?= $_COOKIE['vinculo']; ?>"; $("#vinculo").val(info);
-				var info = "<?= $_COOKIE['regime']; ?>"; $("#regime").val(info);
+			$(document).ready(function () {
+			const cookieFields = {
+				'nome': '#nome',
+				'siape': '#siape',
+				'curso': '#curso',
+				'campus': '#campus',
+				'telefone': '#telefone',
+				'email': '#email',
+				'vinculo': '#vinculo',
+				'regime': '#regime'
+			};
 
-	        });
+			for (const cookie in cookieFields) {
+				const cookieValue = "<?= $_COOKIE['" + cookie + "'] ?>";
+				$(cookieFields[cookie]).val(cookieValue);
+			}
+		});
 		</script>
 
 		<!-- Verifica o preenchimento dos dados -->
@@ -1063,7 +1085,9 @@
 				if (regime === '20h' && totalPreen < 20) {
 					alert('Por favor, distribua todas as 20 horas no quadro!');
 					return false;
-				} else if (regime > '20h' && (totalPreen > 30 || totalPreen < 40)) {
+
+				} else if (regime !== '20h' && (totalPreen > 30 || totalPreen < 40)) {
+
 					alert('Horário especial - A concessão do horário especial ao servidor amparado pelo §3º do art. 98 da Lei nº 8.112, de 1990, objetiva possibilitar ao servidor reduzir a carga horária diária de trabalho para prestar assistência ao cônjuge, filho ou dependente com deficiência, sem necessidade de compensação de horário - Destaca-se que a constatação da deficiência será feita de acordo com o previsto no § 1º, do art. 5º, do Decreto nº 5.296, de 2004 e no inciso I, do art. 3º do Decreto nº 3.298, de1999.');
 					return false;
 				} else if (totalPreen < 40) {
