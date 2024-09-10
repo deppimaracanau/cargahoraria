@@ -292,138 +292,135 @@
 	</body>
 
 	<script type="text/javascript">
-		var opcoes = '';
-		var selecoes = [];
-		var totalSelecionado = 0;
-		var nome = ['Aula', 'Planejamento', 'Atendimento ao Aluno', 'Apoio de Ensino', 'Orientação', 'Extracurricular', 'Pesquisa', 'Extensão', 'Gestão', 'Comissões'];
+    var opcoes = '';
+    var selecoes = [];
+    var totalSelecionado = 0;
+    var nome = ['Aula', 'Planejamento', 'Atendimento ao Aluno', 'Apoio de Ensino', 'Orientação', 'Extracurricular', 'Pesquisa', 'Extensão', 'Gestão', 'Comissões'];
 
-		//Criação da variável opções
-		function gerarLista() {
-			opcoes = '<option selected disabled>Selecione o valor a ser carregado nos campos selecionados:</option>';
-			opcoes += '<option value="">Limpar campos selecionados</option>';
-			for (var k = 0; k < nome.length; k++)
-			  	opcoes += '<option value="' + nome[k] + '">' + nome[k] + '</option>';
-			$('#escolhas').append(opcoes);
-		}
+    // Criação da variável opções
+    function gerarLista() {
+        opcoes = '<option selected disabled>Selecione o valor a ser carregado nos campos selecionados:</option>';
+        opcoes += '<option value="">Limpar campos selecionados</option>';
+        for (var k = 0; k < nome.length; k++)
+            opcoes += '<option value="' + nome[k] + '">' + nome[k] + '</option>';
+        $('#escolhas').append(opcoes);
+    }
 
-		// Clicando o botão
-		function selecao(n) {
+    // Clicando o botão
+    function selecao(n) {
+        $('#campo' + n).css("color", "black");
 
-			$('#campo' + n).css("color","black");
-			
-			if($('#campo' + n).css("background-color") != "rgb(255, 255, 0)") {
-				$('#campo' + n).css("background-color","yellow");
-				selecoes.push(n);
-				atual = n;
-			} else {
-				$('#campo' + n).css("background-color","white");
-				selecoes.splice(selecoes.indexOf(n), 1);
-			}
+        if ($('#campo' + n).css("background-color") != "rgb(255, 255, 0)") {
+            $('#campo' + n).css("background-color", "yellow");
+            selecoes.push(n);
+            atual = n;
+        } else {
+            $('#campo' + n).css("background-color", "white");
+            selecoes.splice(selecoes.indexOf(n), 1);
+        }
+    }
 
-		}
+    // Botão de seleção múltipla
+    function selecaoMultipla() {
+        for (var n = 0; n < selecoes.length; n++) {
+            if ($('#escolhas').val() == "") {
+                if ($('#campo' + selecoes[n]).val() != "")
+                    totalSelecionado--;
+            } else {
+                totalSelecionado++;
+            }
+            $('#campo' + selecoes[n]).val($('#escolhas').val());
+            $('#campo' + selecoes[n]).css("background-color", "white");
+            $('#campo' + selecoes[n]).css("color", "black");
+        }
+        // Zerando o vetor
+        selecoes = [];
+    }
+</script>
 
-		// Botão de seleção multipla
-		function selecaoMultipla() {
-			for (var n = 0; n < selecoes.length; n++) {
-				if($('#escolhas').val() == "") {
-					if($('#campo'+selecoes[n]).val() != "")
-						totalSelecionado--;
-				} else {
-					totalSelecionado++;
-				}
-				$('#campo' + selecoes[n]).val($('#escolhas').val());
-				$('#campo' + selecoes[n]).css("background-color","white");
-				$('#campo' + selecoes[n]).css("color","black");
-			}
-			// Zerando o vetor
-			selecoes = []; 
-		}
-
-	</script>
 
 	<!-- Resgata Informações -->
 	<script type="text/javascript">
-		$(document).ready( function() {
-			var info = "<?= $_COOKIE['nome']; ?>"; $("#nome").val(info);
-			var info = "<?= $_COOKIE['siape']; ?>"; $("#siape").val(info);
-			var info = "<?= $_COOKIE['curso']; ?>"; $("#curso").val(info);
-			var info = "<?= $_COOKIE['campus']; ?>"; $("#campus").val(info);
-			var info = "<?= $_COOKIE['telefone']; ?>"; $("#telefone").val(info);
-			var info = "<?= $_COOKIE['email']; ?>"; $("#email").val(info);
-			var info = "<?= $_COOKIE['vinculo']; ?>"; $("#vinculo").val(info);
-			var info = "<?= $_COOKIE['regime']; ?>"; $("#regime").val(info);
+    $(document).ready(function() {
+        var infoNome = "<?= $_COOKIE['nome']; ?>";
+        $("#nome").val(infoNome);
 
-			var info = "<?= $_COOKIE['campoTexto1']; ?>"; $("#campoTexto1").val(info);
-			var info = "<?= $_COOKIE['campoTexto2']; ?>"; $("#campoTexto2").val(info);
-			var info = "<?= $_COOKIE['campoTexto3']; ?>"; $("#campoTexto3").val(info);
-			var info = "<?= $_COOKIE['campoTexto4']; ?>"; $("#campoTexto4").val(info);
-			var info = "<?= $_COOKIE['campoTexto5']; ?>"; $("#campoTexto5").val(info);
-			
-        });
-	</script>
+        var infoSiape = "<?= $_COOKIE['siape']; ?>";
+        $("#siape").val(infoSiape);
+
+        var infoCurso = "<?= $_COOKIE['curso']; ?>";
+        $("#curso").val(infoCurso);
+
+        var infoCampus = "<?= $_COOKIE['campus']; ?>";
+        $("#campus").val(infoCampus);
+
+        var infoTelefone = "<?= $_COOKIE['telefone']; ?>";
+        $("#telefone").val(infoTelefone);
+
+        var infoEmail = "<?= $_COOKIE['email']; ?>";
+        $("#email").val(infoEmail);
+
+        var infoVinculo = "<?= $_COOKIE['vinculo']; ?>";
+        $("#vinculo").val(infoVinculo);
+
+        var infoRegime = "<?= $_COOKIE['regime']; ?>";
+        $("#regime").val(infoRegime);
+
+        var infoTexto1 = "<?= $_COOKIE['campoTexto1']; ?>";
+        $("#campoTexto1").val(infoTexto1);
+
+        var infoTexto2 = "<?= $_COOKIE['campoTexto2']; ?>";
+        $("#campoTexto2").val(infoTexto2);
+
+        var infoTexto3 = "<?= $_COOKIE['campoTexto3']; ?>";
+        $("#campoTexto3").val(infoTexto3);
+
+        var infoTexto4 = "<?= $_COOKIE['campoTexto4']; ?>";
+        $("#campoTexto4").val(infoTexto4);
+
+        var infoTexto5 = "<?= $_COOKIE['campoTexto5']; ?>";
+        $("#campoTexto5").val(infoTexto5);
+    });
+</script>
+
 
 	<!-- Verifica o preenchimento dos dados -->
 	<script type="text/javascript">
-		function verificacao() {
-			if($('#semestre').val() == "") {
-	        	alert('Por favor, preencha o campo Semestre!');
-	        	document.all['semestre'].focus();
-	        	return false;
-	        }
-	        if($('#nome').val() == "") {
-	        	alert('Por favor, preencha o campo Nome!');
-	        	document.all['nome'].focus();
-	        	return false;
-	        }
-	        if($('#siape').val() == "") {
-	        	alert('Por favor, preencha o campo SIAPE!');
-	        	document.all['siape'].focus();
-	        	return false;
-	        }
-	        if($('#curso').val() == "") {
-	        	alert('Por favor, preencha o campo Curso ou Departamento!');
-	        	document.all['curso'].focus();
-	        	return false;
-	        }
-	        if($('#campus').val() == "") {
-	        	alert('Por favor, preencha o campo Campus!');
-	        	document.all['campus'].focus();
-	        	return false;
-	        }
-	        if($('#telefone').val() == "") {
-	        	alert('Por favor, preencha o campo Fone!');
-	        	document.all['telefone'].focus();
-	        	return false;
-	        }
-	        if($('#email').val() == "") {
-	        	alert('Por favor, preencha o campo Email!');
-	        	document.all['email'].focus();
-	        	return false;
-	        }
-	        if($('#vinculo').val() == "") {
-	        	alert('Por favor, preencha o campo Tipo de Vínculo!');
-	        	document.all['vinculo'].focus();
-	        	return false;
-	        }
-	        if($('#regime').val() == "") {
-	        	alert('Por favor, preencha o campo Regime de Trabalho!');
-	        	document.all['regime'].focus();
-	        	return false;
-	        }
+    function verificacao() {
+        function alertAndFocus(message, elementId) {
+            alert(message);
+            document.getElementById(elementId).focus();
+            return false;
+        }
 
-	        // veririficacao da distribuicao de horas
-	        if($('#regime').val() == '20h'){
-	        	if(totalSelecionado < 20) {
-		        	alert('Por favor, distribua todas as 20 horas!');
-		        	return false;
-		        }
-	        } else {
-	        	if(totalSelecionado < 40) {
-		        	alert('Por favor, distribua todas as 40 horas!');
-		        	return false;
-		        }
-	        }
-	    }
-	</script>
+        const requiredFields = [
+            { id: 'semestre', message: 'Por favor, preencha o campo Semestre!' },
+            { id: 'nome', message: 'Por favor, preencha o campo Nome!' },
+            { id: 'siape', message: 'Por favor, preencha o campo SIAPE!' },
+            { id: 'curso', message: 'Por favor, preencha o campo Curso ou Departamento!' },
+            { id: 'campus', message: 'Por favor, preencha o campo Campus!' },
+            { id: 'telefone', message: 'Por favor, preencha o campo Fone!' },
+            { id: 'email', message: 'Por favor, preencha o campo Email!' },
+            { id: 'vinculo', message: 'Por favor, preencha o campo Tipo de Vínculo!' },
+            { id: 'regime', message: 'Por favor, preencha o campo Regime de Trabalho!' }
+        ];
+
+        for (const field of requiredFields) {
+            if ($('#' + field.id).val() === '') {
+                return alertAndFocus(field.message, field.id);
+            }
+        }
+
+        // Verificação da distribuição de horas
+        const requiredHours = $('#regime').val() === '20h' ? 20 : 40;
+        if (totalSelecionado < requiredHours) {
+            const message = $('#regime').val() === '20h' ? 'Por favor, distribua todas as 20 horas!' : 'Por favor, distribua todas as 40 horas!';
+            return alert(message);
+        }
+
+        return true;
+    }
+</script>
+
 
 </html>
