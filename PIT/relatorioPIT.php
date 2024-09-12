@@ -552,4 +552,3 @@ $mpdf->Output('relatorioPIT.pdf', 'I'); //'D'
 
 exit;
 
-?>
