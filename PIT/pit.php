@@ -343,7 +343,7 @@
 
 
 			<br>
-			<h2>ATIVIDADES DE GESTÃO (Somente para os regimes de trabalho de 40h ou 40h com D.E.)</h2>
+			<h2>ATIVIDADES DE GESTÃO (Somente para os regimes de trabalho de 40h, 40h com D.E ou 30h Horário especial.)</h2>
 
 			<h3 id="gestaoTitulo">ATIVIDADES DE GESTÃO INSTITUCIONAL E ACADÊMICA</h3> <!-- PARTE 8 -->
 			<table class="table table-striped" id="gestao">
@@ -765,8 +765,8 @@
 			};
 
 			if (config[regime]) {
-				$('#gestaoTitulo').toggleClass('hidden', regime == '20h' || regime == '30h');
-				$('#gestao').toggleClass('hidden', regime == '20h' || regime == '30h');
+				$('#gestaoTitulo').toggleClass('hidden', regime == '20h');
+				$('#gestao').toggleClass('hidden', regime == '20h' );
 
 				for (var key in config[regime]) {
 					document.getElementById(key).setAttribute('placeholder', config[regime][key].placeholder);
